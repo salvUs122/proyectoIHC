@@ -1,0 +1,21 @@
+:root {
+  /* Colores según tu Figma (escala de grises) */
+  --color-bg: #ffffff;
+  --color-surface: #e0e0e0;
+  --color-surface-dark: #a0a0a0;
+  --color-text: #000000;
+  --color-text-light: #666666;
+  --color-border: #000000;
+  --color-online: #22c55e;
+  --color-notification: #ef4444;
+
+  /* Bordes y espaciado */
+  --radius-pill: 999px;
+  --radius-card: 16px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+
+  /* Breakpoint único: mobile-first */
+  --breakpoint-desktop: 1024px;
+}
