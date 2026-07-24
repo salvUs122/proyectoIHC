@@ -1,0 +1,210 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+}
+
+.cuerpo {
+  padding: var(--spacing-md);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+.imagenPlaceholder {
+  width: 100%;
+  height: 220px;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  margin-bottom: var(--spacing-sm);
+}
+
+.nombreMascota {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.raza {
+  color: var(--color-text-light);
+}
+
+.zona {
+  margin: var(--spacing-sm) 0;
+}
+
+.recuadro {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.recuadroTitulo {
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+}
+
+.listaCheck {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.etiquetas {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.etiqueta {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+}
+
+.columnaSolicitante {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.tituloSolicitante {
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+}
+
+.subEtiqueta {
+  font-weight: normal;
+  color: var(--color-text-light);
+}
+
+.dato {
+  margin-bottom: 4px;
+}
+
+.mensaje {
+  margin-top: var(--spacing-sm);
+  color: var(--color-text-light);
+  line-height: 1.4;
+}
+
+.botones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.botonAceptar,
+.botonRechazar,
+.botonChatear {
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-weight: bold;
+}
+
+.botonAceptar {
+  background: #dcfce7;
+}
+
+.botonRechazar {
+  background: #fee2e2;
+}
+
+.botonChatear {
+  background: white;
+}
+
+.noEncontrada {
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+/* Pantalla de resultado (Aceptada/Rechazada) */
+.resultadoContenedor {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+}
+
+.resultadoContenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+
+.circuloResultado {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconoResultado {
+  font-size: 3.5rem;
+}
+
+.resultadoTitulo {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.botonVerSolicitudes {
+  padding: 14px 32px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .cuerpo {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+  }
+
+  .card {
+    display: flex;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .columnaImagen {
+    width: 380px;
+    flex-shrink: 0;
+  }
+
+  .columnaSolicitante {
+    flex: 1;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .botones {
+    flex-direction: row;
+  }
+
+  .botonAceptar,
+  .botonRechazar,
+  .botonChatear {
+    flex: none;
+    padding: 14px 24px;
+  }
+}

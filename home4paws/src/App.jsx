@@ -11,6 +11,15 @@ import SolicitudEnviada from './pages/Adopciones/SolicitudEnviada'
 import DatosPersonales from './pages/Cuenta/DatosPersonales'
 import HistorialSolicitudes from './pages/Cuenta/HistorialSolicitudes'
 import DetalleSolicitud from './pages/Cuenta/DetalleSolicitud'
+import Notificaciones from './pages/Notificaciones/Notificaciones'
+import Chat from './pages/Chat/Chat'
+import Donaciones from './pages/Donaciones/Donaciones'
+import GuiaPrimerizos from './pages/GuiaPrimerizos/GuiaPrimerizos'
+import IniciarSesionAdmin from './pages/Administrador/IniciarSesionAdmin'
+import PanelAdministracion from './pages/Administrador/PanelAdministracion'
+import GestionarPublicados from './pages/Administrador/GestionarPublicados'
+import RevisarSolicitudes from './pages/Administrador/RevisarSolicitudes'
+import RevisarSolicitudDetalle from './pages/Administrador/RevisarSolicitudDetalle'
 
 function App() {
   return (
@@ -28,6 +37,16 @@ function App() {
         <Route path="/cuenta" element={<DatosPersonales />} />
         <Route path="/cuenta/historial" element={<HistorialSolicitudes />} />
         <Route path="/cuenta/historial/:idSolicitud" element={<DetalleSolicitud />} />
+        <Route path="/notificaciones" element={<Notificaciones />} />
+        <Route path="/chat" element={<Chat />} />
+        <Route path="/donaciones" element={<Donaciones />} />
+        <Route path="/guia-primerizos" element={<GuiaPrimerizos />} />
+        <Route path="/admin" element={<IniciarSesionAdmin />} />
+        <Route path="/admin/panel" element={<PanelAdministracion />} />
+        <Route path="/admin/publicados" element={<GestionarPublicados />} />
+        <Route path="/admin/solicitudes" element={<RevisarSolicitudes />} />
+        <Route path="/admin/solicitudes/:idSolicitud" element={<RevisarSolicitudDetalle />} />
+        
       </Routes>
     </BrowserRouter>
   )

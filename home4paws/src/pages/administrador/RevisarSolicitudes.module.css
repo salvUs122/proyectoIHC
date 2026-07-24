@@ -1,0 +1,99 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+}
+
+.cuerpo {
+  padding: 0 var(--spacing-md) var(--spacing-lg);
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.tarjeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.puntoNueva {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-text);
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.solicitante {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.mascota {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.estado {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+}
+
+.estadoAceptada {
+  background: #dcfce7;
+}
+
+.estadoRechazada {
+  background: #fee2e2;
+}
+
+.estadoPendiente {
+  background: var(--color-surface);
+}
+
+.botonRevisar {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .cuerpo {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .tarjeta {
+    flex-wrap: nowrap;
+  }
+
+  .botonRevisar {
+    width: auto;
+    padding: 10px 24px;
+  }
+}

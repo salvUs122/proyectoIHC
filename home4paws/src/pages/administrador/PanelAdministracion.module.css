@@ -1,0 +1,51 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+}
+
+.cuerpo {
+  padding: 0 var(--spacing-md) var(--spacing-lg);
+}
+
+.tarjetas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+.tarjeta {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+  text-align: center;
+}
+
+.numero {
+  display: block;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.etiqueta {
+  color: var(--color-text-light);
+  margin-top: var(--spacing-sm);
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .cuerpo {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .tarjetas {
+    flex-direction: row;
+  }
+
+  .tarjeta {
+    flex: 1;
+  }
+}

@@ -1,0 +1,84 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.migaja {
+  width: 100%;
+  background: var(--color-surface);
+  padding: var(--spacing-md);
+}
+
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-lg);
+}
+
+.logo {
+  width: 150px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.formulario {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.etiqueta {
+  font-size: 0.85rem;
+  margin-top: var(--spacing-sm);
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  margin: var(--spacing-sm) 0;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.botonPrincipal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 14px;
+  font-weight: bold;
+  margin-top: var(--spacing-md);
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .contenedor {
+    justify-content: center;
+  }
+
+  .migaja {
+    display: none; /* en tu PDF desktop no aparece esta migaja, solo en mobile */
+  }
+
+  .card {
+    width: 480px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+}

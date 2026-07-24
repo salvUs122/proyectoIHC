@@ -1,0 +1,107 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+}
+
+.cuerpo {
+  padding: 0 var(--spacing-md) var(--spacing-lg);
+}
+
+.botonPublicar {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+  margin-bottom: var(--spacing-md);
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.tarjeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.fotoPlaceholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+  min-width: 150px;
+}
+
+.nombre {
+  font-weight: bold;
+}
+
+.detalle {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.botones {
+  display: flex;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.botonEditar,
+.botonEliminar {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+  font-size: 0.85rem;
+}
+
+.botonEliminar {
+  color: #dc2626;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .cuerpo {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .botonPublicar {
+    width: auto;
+    padding: 12px 28px;
+    margin-left: auto;
+    display: block;
+  }
+
+  .tarjeta {
+    flex-wrap: nowrap;
+  }
+
+  .botones {
+    width: auto;
+  }
+
+  .botonEditar,
+  .botonEliminar {
+    flex: none;
+    padding: 10px 24px;
+  }
+}

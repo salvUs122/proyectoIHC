@@ -1,0 +1,132 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.encabezado {
+  background: var(--color-surface);
+  padding: var(--spacing-md);
+}
+
+.tituloPagina {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.cuerpo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-md);
+}
+
+.ventanaChat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.cabecera {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-surface-dark);
+  flex-shrink: 0;
+}
+
+.nombreRefugio {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.enLinea {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.puntoVerde {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-online);
+}
+
+.mensajes {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  min-height: 300px;
+  overflow-y: auto;
+}
+
+.burbuja {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: var(--radius-card);
+  font-size: 0.9rem;
+}
+
+.burbujaOtro {
+  background: var(--color-surface);
+  align-self: flex-start;
+}
+
+.burbujaPropia {
+  background: var(--color-surface-dark);
+  color: white;
+  align-self: flex-end;
+}
+
+.formulario {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+
+.botonEnviar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-surface-dark);
+  color: white;
+  flex-shrink: 0;
+}
+
+/* ===== DESKTOP ===== */
+@media (min-width: 1024px) {
+  .cuerpo {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .mensajes {
+    min-height: 450px;
+  }
+}
