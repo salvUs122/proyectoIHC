@@ -1,0 +1,38 @@
+export const solicitudes = [
+  {
+    id: 1,
+    mascota: 'Firulais',
+    raza: 'Mestizo',
+    edad: '2 años',
+    estado: 'En revision',
+    fecha: '10/07/2026',
+    fechaVista: '11/07/2026',
+  },
+  {
+    id: 2,
+    mascota: 'Firulais',
+    raza: 'Mestizo',
+    edad: '2 años',
+    estado: 'Aceptada',
+    fecha: '10/07/2026',
+    fechaVista: '11/07/2026',
+  },
+  {
+    id: 3,
+    mascota: 'Firulais',
+    raza: 'Mestizo',
+    edad: '2 años',
+    estado: 'En revision',
+    fecha: '10/07/2026',
+    fechaVista: '11/07/2026',
+  },
+  {
+    id: 4,
+    mascota: 'Firulais',
+    raza: 'Mestizo',
+    edad: '2 años',
+    estado: 'Rechazada',
+    fecha: '10/07/2026',
+    fechaVista: '11/07/2026',
+  },
+];

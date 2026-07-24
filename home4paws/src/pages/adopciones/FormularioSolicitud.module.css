@@ -1,0 +1,116 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+}
+
+.cuerpo {
+  padding: var(--spacing-md);
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+.titulo {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-md);
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.etiqueta {
+  font-size: 0.9rem;
+  margin-top: var(--spacing-sm);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.filaDoble {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.botones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.botonAtras {
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+}
+
+.botonEnviar {
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-weight: bold;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .cuerpo {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+  }
+
+  .card {
+    padding: var(--spacing-lg);
+  }
+
+  .filaDoble {
+    flex-direction: row;
+    gap: var(--spacing-md);
+  }
+
+  .campo {
+    flex: 1;
+  }
+
+  .botones {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .botonAtras,
+  .botonEnviar {
+    width: auto;
+    padding: 14px 32px;
+  }
+}

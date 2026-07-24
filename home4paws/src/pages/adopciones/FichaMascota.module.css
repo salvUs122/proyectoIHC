@@ -1,0 +1,167 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+}
+
+.cuerpo {
+  padding: var(--spacing-md);
+}
+
+.tarjetaPrincipal {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+.imagenPlaceholder {
+  width: 100%;
+  height: 260px;
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+
+.puntos {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: var(--spacing-sm) 0;
+}
+
+.punto {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+}
+
+.puntoActivo {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-text);
+}
+
+.nombre {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.raza {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.zona {
+  margin-bottom: var(--spacing-md);
+}
+
+.recuadro {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.recuadroTitulo {
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+}
+
+.listaCheck {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.etiquetas {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.etiqueta {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+}
+
+.botonSolicitar {
+  width: 100%;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+
+.estadoMobile {
+  margin-top: var(--spacing-md);
+}
+
+.estadoTitulo {
+  font-weight: bold;
+}
+
+.estadoDesktop {
+  display: none;
+}
+
+.noEncontrada {
+  text-align: center;
+  padding: var(--spacing-lg);
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .cuerpo {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+  }
+
+  .tarjetaPrincipal {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+    padding: var(--spacing-lg);
+  }
+
+  .columnaImagen {
+    width: 380px;
+    flex-shrink: 0;
+  }
+
+  .imagenPlaceholder {
+    height: 320px;
+  }
+
+  .estadoMobile {
+    display: none;
+  }
+
+  .columnaInfo {
+    flex: 1;
+  }
+
+  .encabezadoInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .estadoDesktop {
+    display: inline-block;
+    font-size: 0.9rem;
+  }
+
+  .botonSolicitar {
+    width: auto;
+    padding: 16px 48px;
+  }
+}

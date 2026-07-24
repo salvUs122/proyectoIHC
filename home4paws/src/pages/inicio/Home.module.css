@@ -1,0 +1,114 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.contenido {
+  flex: 1;
+  padding: 0 var(--spacing-md);
+  text-align: center;
+}
+
+.titulo {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+
+.subtitulo {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-lg);
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.tarjeta {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.imagenPlaceholder {
+  font-size: 5rem;
+  background: white;
+  border-radius: var(--radius-card);
+  width: 100%;
+  padding: var(--spacing-lg) 0;
+}
+
+.imagenPlaceholderChica {
+  font-size: 2.5rem;
+  background: white;
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+.columnaDerecha {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.botonOscuro {
+  width: 100%;
+  padding: 14px;
+  background: var(--color-surface-dark);
+  color: white;
+  font-weight: bold;
+  border-radius: var(--radius-pill);
+  text-align: center;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .contenido {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+  }
+
+  .titulo {
+    font-size: 3rem;
+  }
+
+  .grid {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .tarjetaAdoptar {
+    flex: 1;
+  }
+
+  .columnaDerecha {
+    flex: 1;
+  }
+
+  .tarjeta {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+  }
+
+  .tarjetaAdoptar {
+    flex-direction: column;
+  }
+
+  .imagenPlaceholderChica {
+    flex-shrink: 0;
+  }
+
+  .botonOscuro {
+    width: auto;
+    padding: 14px 32px;
+  }
+}

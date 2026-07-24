@@ -1,0 +1,101 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+}
+
+.titulo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0 var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.cuerpo {
+  padding: 0 var(--spacing-md) var(--spacing-lg);
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.tarjeta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.fotoPlaceholder {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.info {
+  flex: 1;
+}
+
+.nombre {
+  font-weight: bold;
+}
+
+.fecha {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+.estado {
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  font-size: 0.8rem;
+}
+
+.estadoAceptada {
+  background: #dcfce7;
+}
+
+.estadoRechazada {
+  background: #fee2e2;
+}
+
+.estadoRevision {
+  background: var(--color-surface);
+}
+
+.botonDetalle {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .titulo,
+  .cuerpo {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tarjeta {
+    flex-wrap: nowrap;
+  }
+
+  .botonDetalle {
+    width: auto;
+    padding: 10px 24px;
+  }
+}

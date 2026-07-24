@@ -1,0 +1,38 @@
+.pestanas {
+  display: flex;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  margin: 0 var(--spacing-md) var(--spacing-md);
+  overflow: hidden;
+}
+
+.pestana {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+}
+
+.activa {
+  color: var(--color-text);
+  font-weight: bold;
+  border-bottom: 2px solid var(--color-text);
+}
+
+@media (min-width: 1024px) {
+  .pestanas {
+    max-width: 1000px;
+    margin: 0 auto var(--spacing-md);
+    justify-content: flex-start;
+    border: none;
+    gap: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border);
+    border-radius: 0;
+  }
+
+  .pestana {
+    flex: none;
+    padding: 12px 0;
+  }
+}

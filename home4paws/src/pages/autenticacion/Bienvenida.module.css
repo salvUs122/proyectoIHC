@@ -1,0 +1,81 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.migaja {
+  background: var(--color-surface);
+  padding: var(--spacing-md);
+  font-size: 0.9rem;
+}
+
+.migaja span {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.contenido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-md);
+  justify-content: center;
+}
+
+.circuloCheck {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check {
+  font-size: 3.5rem;
+}
+
+.titulo {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.texto {
+  color: var(--color-text-light);
+  max-width: 400px;
+}
+
+.boton {
+  margin-top: var(--spacing-md);
+  padding: 16px 60px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+  font-size: 1.1rem;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .circuloCheck {
+    width: 180px;
+    height: 180px;
+  }
+
+  .check {
+    font-size: 4.5rem;
+  }
+
+  .titulo {
+    font-size: 2.2rem;
+  }
+
+  .texto {
+    font-size: 1.1rem;
+  }
+}
