@@ -12,7 +12,7 @@ export default function Donaciones() {
       <BarraNavegacion />
 
       <div className={styles.cuerpo}>
-        <BotonVolver onClick={() => navigate('/home')} />
+        <BotonVolver onClick={() => navigate('/')} />
 
         <h1 className={styles.titulo}>Donaciones</h1>
 

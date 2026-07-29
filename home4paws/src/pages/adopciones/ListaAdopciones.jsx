@@ -3,11 +3,12 @@ import BarraNavegacion from '../../components/common/BarraNavegacion';
 import BotonVolver from '../../components/common/BotonVolver';
 import FiltrosMascota from '../../components/pets/FiltrosMascota';
 import TarjetaMascota from '../../components/pets/TarjetaMascota';
-import { mascotas } from '../../data/mascotas';
+import { useApp } from '../../context/AppContext';
 import styles from './ListaAdopciones.module.css';
 
 export default function ListaAdopciones() {
   const navigate = useNavigate();
+  const { mascotas } = useApp();
 
   return (
     <div className={styles.contenedor}>
@@ -21,7 +22,7 @@ export default function ListaAdopciones() {
         <FiltrosMascota />
 
         <div className={styles.listaContenedor}>
-          <BotonVolver onClick={() => navigate('/home')} />
+          <BotonVolver onClick={() => navigate('/')} />
 
           <div className={styles.grid}>
             {mascotas.map((mascota) => (

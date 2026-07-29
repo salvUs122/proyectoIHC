@@ -1,0 +1,69 @@
+/* ===== MOBILE (por defecto) ===== */
+.contenedor {
+  min-height: 100vh;
+  padding: var(--spacing-md);
+}
+
+.indicadorPasos {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+}
+
+.paso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  opacity: 0.4;
+  text-align: center;
+}
+
+.pasoActivo {
+  opacity: 1;
+}
+
+.pasoNumero {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.pasoActivo .pasoNumero {
+  background: var(--color-text);
+  color: white;
+}
+
+.pasoNombre {
+  font-size: 0.65rem;
+  display: none; /* en mobile solo mostramos el número, por espacio */
+}
+
+.contenidoPaso {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .contenedor {
+    padding: var(--spacing-lg);
+  }
+
+  .indicadorPasos {
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+  }
+
+  .pasoNombre {
+    display: block;
+    font-size: 0.8rem;
+  }
+}

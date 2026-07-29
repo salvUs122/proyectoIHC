@@ -1,16 +1,34 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
 import styles from './IniciarSesion.module.css';
 import logo from '../../assets/logo.png';
 
 export default function IniciarSesion() {
+  const navigate = useNavigate();
+  const { iniciarSesionUsuario } = useApp();
+
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
+  const [error, setError] = useState('');
 
   const manejarSubmit = (e) => {
     e.preventDefault();
-    console.log({ correo, contrasena });
+    setError('');
+
+    if (!correo.trim() || !contrasena.trim()) {
+      setError('Todos los campos son obligatorios');
+      return;
+    }
+
+    const encontrado = iniciarSesionUsuario(correo, contrasena);
+    if (!encontrado) {
+      setError('Correo o contraseña incorrectos');
+      return;
+    }
+
+    navigate('/');
   };
 
   return (
@@ -49,6 +67,8 @@ export default function IniciarSesion() {
             />
             MOSTRAR CONTRASEÑA
           </label>
+
+          {error && <p className={styles.error}>{error}</p>}
 
           <button type="submit" className={styles.botonPrincipal}>
             INICIAR SESION

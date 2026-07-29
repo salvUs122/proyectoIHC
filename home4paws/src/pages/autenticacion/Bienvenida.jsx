@@ -19,7 +19,7 @@ export default function Bienvenida() {
           y enviar tu primera solicitud.
         </p>
 
-        <button className={styles.boton} onClick={() => navigate('/home')}>
+        <button className={styles.boton} onClick={() => navigate('/')}>
           Empezar
         </button>
       </div>

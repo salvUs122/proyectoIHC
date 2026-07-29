@@ -1,13 +1,41 @@
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
 import styles from './BarraAdmin.module.css';
 import logo from '../../assets/logo.png';
 
 export default function BarraAdmin() {
+  const navigate = useNavigate();
+  const { setAdminActual } = useApp();
+  const [menuAbierto, setMenuAbierto] = useState(false);
+
+  const cerrarSesion = () => {
+    setAdminActual(null);
+    navigate('/');
+  };
+
   return (
     <div className={styles.contenedor}>
       <nav className={styles.navbar}>
         <img src={logo} alt="Home4Paws" className={styles.logo} />
-        <div className={styles.perfil}></div>
+
+        <div className={styles.perfilContenedor}>
+          <button
+            className={styles.perfil}
+            onClick={() => setMenuAbierto(!menuAbierto)}
+            aria-label="Menú de perfil"
+          >
+            👤
+          </button>
+
+          {menuAbierto && (
+            <div className={styles.menuDesplegable}>
+              <button className={styles.opcionMenu} onClick={cerrarSesion}>
+                Cerrar sesión
+              </button>
+            </div>
+          )}
+        </div>
       </nav>
 
       <div className={styles.encabezado}>

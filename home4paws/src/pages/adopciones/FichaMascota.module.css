@@ -164,4 +164,9 @@
     width: auto;
     padding: 16px 48px;
   }
+  .sinDatos {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  font-style: italic;
+}
 }

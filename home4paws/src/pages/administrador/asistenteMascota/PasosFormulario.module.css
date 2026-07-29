@@ -1,0 +1,203 @@
+/* ===== MOBILE (por defecto) ===== */
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+.subtitulo {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: var(--spacing-md) 0 var(--spacing-sm);
+}
+
+.etiqueta {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: var(--spacing-sm);
+  margin-bottom: 4px;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.etiquetasSeleccionables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.etiquetaBoton {
+  padding: 8px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+  font-size: 0.85rem;
+}
+
+.etiquetaSeleccionada {
+  background: var(--color-surface-dark);
+  color: white;
+}
+
+.textoAyuda {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.textoAyudaChico {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  text-align: center;
+  margin-top: var(--spacing-sm);
+}
+
+.zonaFotos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+.miniatura {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.botonQuitar {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 0.7rem;
+}
+
+.etiquetaPortada {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 0.6rem;
+  text-align: center;
+  padding: 2px;
+}
+
+.botonAgregarFoto {
+  width: 90px;
+  height: 90px;
+  border: 1px dashed var(--color-border);
+  border-radius: 8px;
+  font-size: 1.5rem;
+  color: var(--color-text-light);
+  background: white;
+}
+
+.resumen {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resumenImagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  margin-bottom: var(--spacing-sm);
+}
+
+.resumenNombre {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.resumenLinea {
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.resumenCampo {
+  font-size: 0.9rem;
+}
+
+.error {
+  color: #dc2626;
+  font-size: 0.85rem;
+}
+
+.botones {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-lg);
+}
+
+.botonAtras {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: white;
+}
+
+.botonSiguiente {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  font-weight: bold;
+}
+
+/* ===== DESKTOP (a partir de 1024px) ===== */
+@media (min-width: 1024px) {
+  .card {
+    padding: var(--spacing-lg);
+  }
+
+  .botones {
+    justify-content: flex-start;
+  }
+
+  .botonAtras,
+  .botonSiguiente {
+    flex: none;
+    padding: 14px 40px;
+  }
+
+  .resumenImagen {
+    height: 280px;
+  }
+}

@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
 import styles from './IniciarSesionAdmin.module.css';
 import logo from '../../assets/logo.png';
 
 export default function IniciarSesionAdmin() {
   const navigate = useNavigate();
+  const { iniciarSesionAdmin } = useApp();
+
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
@@ -19,7 +22,12 @@ export default function IniciarSesionAdmin() {
       return;
     }
 
-    // Login simulado por ahora, luego se conecta con backend
+    const encontrado = iniciarSesionAdmin(correo, contrasena);
+    if (!encontrado) {
+      setError('Correo o contraseña incorrectos');
+      return;
+    }
+
     navigate('/admin/panel');
   };
 

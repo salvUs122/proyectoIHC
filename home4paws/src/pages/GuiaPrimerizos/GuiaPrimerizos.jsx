@@ -13,7 +13,7 @@ export default function GuiaPrimerizos() {
       <BarraNavegacion />
 
       <div className={styles.cuerpo}>
-        <BotonVolver onClick={() => navigate('/home')} />
+        <BotonVolver onClick={() => navigate('/')} />
 
         <h1 className={styles.titulo}>Guia Adoptantes primerizos</h1>
 

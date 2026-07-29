@@ -1,18 +1,16 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarraAdmin from '../../components/common/BarraAdmin';
-import { mascotas as mascotasIniciales } from '../../data/mascotas';
+import { useApp } from '../../context/AppContext';
 import styles from './GestionarPublicados.module.css';
 
 export default function GestionarPublicados() {
   const navigate = useNavigate();
-  const [mascotas, setMascotas] = useState(mascotasIniciales);
+  const { mascotas, eliminarMascota } = useApp();
 
-  const eliminarMascota = (id) => {
+  const manejarEliminar = (id) => {
     const confirmar = window.confirm('¿Seguro que quieres eliminar esta publicación?');
     if (!confirmar) return;
-
-    setMascotas(mascotas.filter((m) => m.id !== id));
+    eliminarMascota(id);
   };
 
   return (
@@ -46,7 +44,7 @@ export default function GestionarPublicados() {
                 </button>
                 <button
                   className={styles.botonEliminar}
-                  onClick={() => eliminarMascota(m.id)}
+                  onClick={() => manejarEliminar(m.id)}
                 >
                   Eliminar
                 </button>

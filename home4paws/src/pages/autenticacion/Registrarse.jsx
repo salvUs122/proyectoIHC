@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useApp } from '../../context/AppContext';
 import styles from './Registrarse.module.css';
 import logo from '../../assets/logo.png';
 
 export default function Registrarse() {
   const navigate = useNavigate();
+  const { registrarUsuario } = useApp();
 
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');
@@ -16,44 +18,45 @@ export default function Registrarse() {
   const [error, setError] = useState('');
 
   const manejarSubmit = (e) => {
-  e.preventDefault();
-  setError('');
+    e.preventDefault();
+    setError('');
 
-  // Validamos que ningún campo de texto esté vacío
-  if (
-    !nombre.trim() ||
-    !telefono.trim() ||
-    !correo.trim() ||
-    !contrasena.trim() ||
-    !confirmarContrasena.trim()
-  ) {
-    setError('Todos los campos son obligatorios');
-    return;
-  }
+    if (
+      !nombre.trim() ||
+      !telefono.trim() ||
+      !correo.trim() ||
+      !contrasena.trim() ||
+      !confirmarContrasena.trim()
+    ) {
+      setError('Todos los campos son obligatorios');
+      return;
+    }
 
-  if (contrasena.length < 6) {
-    setError('La contraseña debe tener al menos 6 caracteres');
-    return;
-  }
+    if (contrasena.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
 
-  if (contrasena !== confirmarContrasena) {
-    setError('Las contraseñas no coinciden');
-    return;
-  }
+    if (contrasena !== confirmarContrasena) {
+      setError('Las contraseñas no coinciden');
+      return;
+    }
 
-  if (!aceptaTerminos) {
-    setError('Debes aceptar los términos y condiciones');
-    return;
-  }
+    if (!aceptaTerminos) {
+      setError('Debes aceptar los términos y condiciones');
+      return;
+    }
 
-  navigate('/bienvenida');
-};
+    registrarUsuario({ nombre, telefono, correo, contrasena });
+    navigate('/bienvenida');
+  };
+
   return (
     <div className={styles.contenedor}>
       <div className={styles.card}>
         <img src={logo} alt="Home4Paws" className={styles.logo} />
 
-        <form onSubmit={manejarSubmit} className={styles.formulario} noValidate={false}>
+        <form onSubmit={manejarSubmit} className={styles.formulario}>
           <label className={styles.etiqueta} htmlFor="nombre">
             NOMBRE Y APELLIDOS
           </label>
@@ -63,7 +66,6 @@ export default function Registrarse() {
             className={styles.input}
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            required
           />
 
           <label className={styles.etiqueta} htmlFor="telefono">
@@ -75,7 +77,6 @@ export default function Registrarse() {
             className={styles.input}
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
-            required
           />
 
           <label className={styles.etiqueta} htmlFor="correo">
@@ -87,7 +88,6 @@ export default function Registrarse() {
             className={styles.input}
             value={correo}
             onChange={(e) => setCorreo(e.target.value)}
-            required
           />
 
           <label className={styles.etiqueta} htmlFor="contrasena">
@@ -99,8 +99,6 @@ export default function Registrarse() {
             className={styles.input}
             value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
-            required
-            minLength={6}
           />
 
           <label className={styles.etiqueta} htmlFor="confirmarContrasena">
@@ -112,8 +110,6 @@ export default function Registrarse() {
             className={styles.input}
             value={confirmarContrasena}
             onChange={(e) => setConfirmarContrasena(e.target.value)}
-            required
-            minLength={6}
           />
 
           <label className={styles.checkboxLabel}>
@@ -130,7 +126,6 @@ export default function Registrarse() {
               type="checkbox"
               checked={aceptaTerminos}
               onChange={(e) => setAceptaTerminos(e.target.checked)}
-              required
             />
             ACEPTAR TERMINOS Y CONDICIONES
           </label>

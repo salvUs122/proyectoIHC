@@ -16,7 +16,7 @@ export default function Notificaciones() {
       </div>
 
       <div className={styles.cuerpo}>
-        <BotonVolver onClick={() => navigate('/home')} />
+        <BotonVolver onClick={() => navigate('/')} />
 
         <div className={styles.lista}>
           {notificaciones.map((n) => (

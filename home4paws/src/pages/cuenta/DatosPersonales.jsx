@@ -3,17 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import BarraNavegacion from '../../components/common/BarraNavegacion';
 import BotonVolver from '../../components/common/BotonVolver';
 import PestanasCuenta from '../../components/common/PestanasCuenta';
+import { useApp } from '../../context/AppContext';
 import styles from './DatosPersonales.module.css';
 
 export default function DatosPersonales() {
   const navigate = useNavigate();
+  const { usuarioActual, setUsuarioActual } = useApp();
   const [infoExtra, setInfoExtra] = useState('');
 
-  // Datos de prueba, luego vendrán del backend
-  const usuario = {
-    nombre: 'Brandon Cuevas Cuba',
-    telefono: '+591 76476507',
-    correo: 'tuCorreo@gmail.com',
+  const usuario = usuarioActual || { nombre: 'Invitado', telefono: '', correo: '' };
+
+  const cerrarSesion = () => {
+    setUsuarioActual(null);
+    navigate('/');
   };
 
   return (
@@ -24,7 +26,7 @@ export default function DatosPersonales() {
       <PestanasCuenta />
 
       <div className={styles.cuerpo}>
-        <BotonVolver onClick={() => navigate('/home')} />
+        <BotonVolver onClick={() => navigate('/')} />
 
         <div className={styles.card}>
           <div className={styles.columnaFoto}>
@@ -43,6 +45,10 @@ export default function DatosPersonales() {
               value={infoExtra}
               onChange={(e) => setInfoExtra(e.target.value)}
             />
+
+            <button className={styles.botonCerrarSesion} onClick={cerrarSesion}>
+              Cerrar sesión
+            </button>
           </div>
         </div>
       </div>

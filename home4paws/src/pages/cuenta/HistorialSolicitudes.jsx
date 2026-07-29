@@ -22,7 +22,7 @@ export default function HistorialSolicitudes() {
       <PestanasCuenta />
 
       <div className={styles.cuerpo}>
-        <BotonVolver onClick={() => navigate('/home')} />
+        <BotonVolver onClick={() => navigate('/')} />
 
         <div className={styles.lista}>
           {solicitudes.map((s) => (

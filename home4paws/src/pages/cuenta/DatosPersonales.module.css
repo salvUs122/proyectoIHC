@@ -97,4 +97,21 @@
   .columnaDatos {
     text-align: left;
   }
+ .botonCerrarSesion {
+    margin-top: var(--spacing-md);
+    padding: 14px;
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    background: white;
+    color: var(--color-text);
+    font-weight: bold;
+  }
+
+  @media (min-width: 1024px) {
+    .botonCerrarSesion {
+      width: auto;
+      padding: 14px 32px;
+    }
+  }
 }

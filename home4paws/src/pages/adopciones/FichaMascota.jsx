@@ -1,14 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import BarraNavegacion from '../../components/common/BarraNavegacion';
 import BotonVolver from '../../components/common/BotonVolver';
-import { mascotas } from '../../data/mascotas';
+import { useApp } from '../../context/AppContext';
 import styles from './FichaMascota.module.css';
 
 export default function FichaMascota() {
   const { idMascota } = useParams();
   const navigate = useNavigate();
+  const { buscarMascota, usuarioActual } = useApp();
 
-  const mascota = mascotas.find((m) => m.id === Number(idMascota));
+  const mascota = buscarMascota(idMascota);
 
   if (!mascota) {
     return (
@@ -18,6 +19,17 @@ export default function FichaMascota() {
       </div>
     );
   }
+
+  const sinFichaSalud =
+    !mascota.vacunas && !mascota.esterilizado && !mascota.desparasitado && !mascota.otrosTratamientos;
+
+  const manejarSolicitar = () => {
+    if (!usuarioActual) {
+      navigate('/identificate');
+      return;
+    }
+    navigate(`/adopciones/${mascota.id}/solicitud`);
+  };
 
   return (
     <div className={styles.contenedor}>
@@ -47,31 +59,45 @@ export default function FichaMascota() {
               <h1 className={styles.nombre}>{mascota.nombre}</h1>
               <span className={styles.estadoDesktop}>○ {mascota.estado}</span>
             </div>
-            <p className={styles.raza}>Raza - Edad - Sexo</p>
-            <p className={styles.zona}>📍 Zona o ubicacion</p>
+            <p className={styles.raza}>
+              {mascota.raza} · {mascota.edad} · {mascota.tamano}
+            </p>
+            <p className={styles.zona}>📍 {mascota.zona}</p>
 
             <div className={styles.recuadro}>
               <p className={styles.recuadroTitulo}>Ficha de Salud</p>
               <div className={styles.listaCheck}>
-                <label>☑ Vacunas Al Dia</label>
-                <label>☑ Esterilizado</label>
-                <label>☑ Desparasitado</label>
-                <label>☑ Otros</label>
+                {mascota.vacunas && <label>☑ Vacunas Al Dia</label>}
+                {mascota.esterilizado && <label>☑ Esterilizado</label>}
+                {mascota.desparasitado && <label>☑ Desparasitado</label>}
+                {mascota.otrosTratamientos && <label>☑ {mascota.otrosTratamientos}</label>}
+                {sinFichaSalud && <p className={styles.sinDatos}>Sin datos registrados</p>}
               </div>
             </div>
 
             <div className={styles.recuadro}>
               <p className={styles.recuadroTitulo}>Comportamiento</p>
               <div className={styles.etiquetas}>
-                <span className={styles.etiqueta}>Amigable</span>
-                <span className={styles.etiqueta}>Con niños</span>
+                {mascota.comportamiento && mascota.comportamiento.length > 0 ? (
+                  mascota.comportamiento.map((c) => (
+                    <span key={c} className={styles.etiqueta}>
+                      {c}
+                    </span>
+                  ))
+                ) : (
+                  <p className={styles.sinDatos}>Sin datos registrados</p>
+                )}
               </div>
             </div>
 
-            <button
-              className={styles.botonSolicitar}
-              onClick={() => navigate(`/adopciones/${mascota.id}/solicitud`)}
-            >
+            {mascota.notas && (
+              <div className={styles.recuadro}>
+                <p className={styles.recuadroTitulo}>Notas adicionales</p>
+                <p>{mascota.notas}</p>
+              </div>
+            )}
+
+            <button className={styles.botonSolicitar} onClick={manejarSolicitar}>
               SOLICITAR ADOPCION
             </button>
           </div>
