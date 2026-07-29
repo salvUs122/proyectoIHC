@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import BarraNavegacion from '../../components/common/BarraNavegacion';
 import BotonVolver from '../../components/common/BotonVolver';
@@ -8,6 +9,7 @@ export default function FichaMascota() {
   const { idMascota } = useParams();
   const navigate = useNavigate();
   const { buscarMascota, usuarioActual } = useApp();
+  const [fotoActiva, setFotoActiva] = useState(0);
 
   const mascota = buscarMascota(idMascota);
 
@@ -20,6 +22,7 @@ export default function FichaMascota() {
     );
   }
 
+  const fotos = mascota.fotos && mascota.fotos.length > 0 ? mascota.fotos : null;
   const sinFichaSalud =
     !mascota.vacunas && !mascota.esterilizado && !mascota.desparasitado && !mascota.otrosTratamientos;
 
@@ -40,13 +43,23 @@ export default function FichaMascota() {
 
         <div className={styles.tarjetaPrincipal}>
           <div className={styles.columnaImagen}>
-            <div className={styles.imagenPlaceholder}>🐾</div>
-            <div className={styles.puntos}>
-              <span className={styles.puntoActivo}></span>
-              <span className={styles.punto}></span>
-              <span className={styles.punto}></span>
-              <span className={styles.punto}></span>
-            </div>
+            {fotos ? (
+              <img src={fotos[fotoActiva]} alt={mascota.nombre} className={styles.imagenReal} />
+            ) : (
+              <div className={styles.imagenPlaceholder}>🐾</div>
+            )}
+
+            {fotos && fotos.length > 1 && (
+              <div className={styles.puntos}>
+                {fotos.map((_, i) => (
+                  <span
+                    key={i}
+                    className={i === fotoActiva ? styles.puntoActivo : styles.punto}
+                    onClick={() => setFotoActiva(i)}
+                  ></span>
+                ))}
+              </div>
+            )}
 
             <div className={styles.estadoMobile}>
               <p className={styles.estadoTitulo}>ESTADO</p>

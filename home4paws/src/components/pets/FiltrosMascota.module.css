@@ -70,4 +70,18 @@
     font-weight: bold;
     margin-bottom: var(--spacing-sm);
   }
+  .imagen {
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: var(--radius-card);
+    object-fit: cover;
+  }
+
+  @media (min-width: 1024px) {
+    .imagen {
+      width: 100%;
+      height: 160px;
+    }
+  }
 }

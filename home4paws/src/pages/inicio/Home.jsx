@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import BarraNavegacion from '../../components/common/BarraNavegacion';
 import PiePagina from '../../components/common/PiePagina';
+import homeFoto1 from '../../assets/homeFoto1.jpg';
+import homeFoto2 from '../../assets/homeFoto2.jpg';
+import homeFoto3 from '../../assets/homeFoto3.jpg';
 import styles from './Home.module.css';
 
 export default function Home() {
@@ -16,7 +19,7 @@ export default function Home() {
 
         <div className={styles.grid}>
           <div className={`${styles.tarjeta} ${styles.tarjetaAdoptar}`}>
-            <div className={styles.imagenPlaceholder}>🐶</div>
+            <img src={homeFoto1} alt="Adopta una mascota" className={styles.imagen} />
             <Link to="/adopciones" className={styles.botonOscuro}>
               QUIERO ADOPTAR
             </Link>
@@ -24,14 +27,14 @@ export default function Home() {
 
           <div className={styles.columnaDerecha}>
             <div className={styles.tarjeta}>
-              <div className={styles.imagenPlaceholderChica}>🐕🐈</div>
+              <img src={homeFoto2} alt="Donaciones" className={styles.imagenChica} />
               <Link to="/donaciones" className={styles.botonOscuro}>
                 Donaciones
               </Link>
             </div>
 
             <div className={styles.tarjeta}>
-              <div className={styles.imagenPlaceholderChica}>🧑‍🦱🐶</div>
+              <img src={homeFoto3} alt="Adoptante primerizo" className={styles.imagenChica} />
               <Link to="/guia-primerizos" className={styles.botonOscuro}>
                 ¿Adoptante Primerizo?
               </Link>

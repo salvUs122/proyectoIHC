@@ -164,9 +164,27 @@
     width: auto;
     padding: 16px 48px;
   }
-  .sinDatos {
-  color: var(--color-text-light);
-  font-size: 0.85rem;
-  font-style: italic;
-}
+    .sinDatos {
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+  .imagenReal {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: var(--radius-card);
+    display: block;
+  }
+
+  .puntoActivo,
+  .punto {
+    cursor: pointer;
+  }
+
+  @media (min-width: 1024px) {
+    .imagenReal {
+      height: 320px;
+    }
+  }
 }
