@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import BarraAdmin from '../../components/common/BarraAdmin';
-import { solicitudesAdmin } from '../../data/solicitudesAdmin';
+import { useApp } from '../../context/AppContext';
 import styles from './RevisarSolicitudes.module.css';
 
 const claseEstado = {
@@ -11,19 +11,28 @@ const claseEstado = {
 
 export default function RevisarSolicitudes() {
   const navigate = useNavigate();
+  const { solicitudes } = useApp();
 
   return (
     <div className={styles.contenedor}>
       <BarraAdmin />
 
       <div className={styles.cuerpo}>
+        {solicitudes.length === 0 && (
+          <p className={styles.sinSolicitudes}>Aún no hay solicitudes.</p>
+        )}
+
         <div className={styles.lista}>
-          {solicitudesAdmin.map((s) => (
+          {solicitudes.map((s) => (
             <div key={s.id} className={styles.tarjeta}>
               {s.estado === 'Pendiente' && <span className={styles.puntoNueva}></span>}
-              <div className={styles.avatar}></div>
+              {s.solicitanteFoto ? (
+                <img src={s.solicitanteFoto} alt={s.solicitanteNombre} className={styles.avatarImg} />
+              ) : (
+                <div className={styles.avatar}></div>
+              )}
               <div className={styles.info}>
-                <h3 className={styles.solicitante}>{s.solicitante}</h3>
+                <h3 className={styles.solicitante}>{s.solicitanteNombre}</h3>
                 <p className={styles.mascota}>
                   {s.mascota} · {s.raza}
                 </p>

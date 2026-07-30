@@ -3,8 +3,12 @@ import { useApp } from '../../context/AppContext';
 import styles from './BarraNavegacion.module.css';
 import logo from '../../assets/logo.png';
 
-export default function BarraNavegacion({ hayNotificaciones = true }) {
-  const { usuarioActual } = useApp();
+export default function BarraNavegacion() {
+  const { usuarioActual, notificacionesDelUsuario } = useApp();
+
+  const hayNoLeidas = usuarioActual
+    ? notificacionesDelUsuario(usuarioActual.correo).some((n) => !n.leida)
+    : false;
 
   return (
     <nav className={styles.navbar}>
@@ -14,7 +18,7 @@ export default function BarraNavegacion({ hayNotificaciones = true }) {
         <div className={styles.iconos}>
           <Link to="/notificaciones" className={styles.iconoCampana}>
             🔔
-            {hayNotificaciones && <span className={styles.puntoRojo}></span>}
+            {hayNoLeidas && <span className={styles.puntoRojo}></span>}
           </Link>
           <Link to="/cuenta" className={styles.iconoPerfil}>
             👤

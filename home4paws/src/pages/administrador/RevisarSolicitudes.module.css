@@ -34,8 +34,20 @@
 .avatar {
   width: 44px;
   height: 44px;
+  min-width: 44px;
+  max-width: 44px;
   border-radius: 50%;
   border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.avatarImg {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  max-width: 44px;
+  border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
 }
 
@@ -62,11 +74,15 @@
 }
 
 .estadoAceptada {
-  background: #dcfce7;
+  background: var(--color-surface-dark);
+  color: white;
 }
 
 .estadoRechazada {
-  background: #fee2e2;
+  background: white;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  text-decoration: line-through;
 }
 
 .estadoPendiente {
@@ -79,6 +95,12 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   background: white;
+}
+
+.sinSolicitudes {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: var(--spacing-lg);
 }
 
 /* ===== DESKTOP (a partir de 1024px) ===== */

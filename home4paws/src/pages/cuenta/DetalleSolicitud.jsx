@@ -1,13 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import BotonVolver from '../../components/common/BotonVolver';
-import { solicitudes } from '../../data/solicitudes';
+import { useApp } from '../../context/AppContext';
 import styles from './DetalleSolicitud.module.css';
 
 export default function DetalleSolicitud() {
   const { idSolicitud } = useParams();
   const navigate = useNavigate();
+  const { buscarSolicitud, buscarMascota } = useApp();
 
-  const solicitud = solicitudes.find((s) => s.id === Number(idSolicitud));
+  const solicitud = buscarSolicitud(idSolicitud);
+  const mascota = solicitud ? buscarMascota(solicitud.idMascota) : null;
 
   if (!solicitud) {
     return <p className={styles.noEncontrada}>Solicitud no encontrada.</p>;
@@ -24,34 +26,41 @@ export default function DetalleSolicitud() {
 
         <div className={styles.card}>
           <div className={styles.columnaImagen}>
-            <div className={styles.imagenPlaceholder}>🐾</div>
+            {mascota?.fotos?.[0] ? (
+              <img src={mascota.fotos[0]} alt={solicitud.mascota} className={styles.imagenReal} />
+            ) : (
+              <div className={styles.imagenPlaceholder}>🐾</div>
+            )}
           </div>
 
           <div className={styles.columnaInfo}>
             <h1 className={styles.titulo}>
-              {solicitud.mascota} · {solicitud.raza}, {solicitud.edad}
+              {solicitud.mascota} · {solicitud.raza}
             </h1>
             <span className={styles.etiquetaEstado}>{solicitud.estado}</span>
 
             <div className={styles.recuadro}>
               <p className={styles.recuadroTitulo}>Estado de la solicitud</p>
-              <p className={styles.paso}>✅ Enviada — {solicitud.fecha}</p>
-              <p className={styles.paso}>
-                ✅ Vista por el refugio — {solicitud.fechaVista}
-              </p>
-              <p className={styles.paso}>⏳ En espera de respuesta</p>
+              <p className={styles.paso}>✅ Enviada</p>
+              {solicitud.estado !== 'Pendiente' ? (
+                <p className={styles.paso}>
+                  {solicitud.estado === 'Aceptada' ? '✅' : '❌'} {solicitud.estado}
+                </p>
+              ) : (
+                <p className={styles.paso}>⏳ En espera de respuesta</p>
+              )}
             </div>
 
             <div className={styles.botones}>
               <button
                 className={styles.botonSecundario}
-                onClick={() => navigate('/chat')}
+                onClick={() => navigate(`/chat?solicitud=${solicitud.id}`)}
               >
                 Abrir chat con el refugio
               </button>
               <button
                 className={styles.botonSecundario}
-                onClick={() => navigate('/adopciones')}
+                onClick={() => navigate(`/adopciones/${solicitud.idMascota}`)}
               >
                 Ver detalle de la mascota
               </button>

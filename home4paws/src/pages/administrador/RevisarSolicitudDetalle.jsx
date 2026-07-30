@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import BotonVolver from '../../components/common/BotonVolver';
-import { solicitudesAdmin } from '../../data/solicitudesAdmin';
+import { useApp } from '../../context/AppContext';
 import styles from './RevisarSolicitudDetalle.module.css';
 
 export default function RevisarSolicitudDetalle() {
   const { idSolicitud } = useParams();
   const navigate = useNavigate();
-  const solicitud = solicitudesAdmin.find((s) => s.id === Number(idSolicitud));
+  const { buscarSolicitud, buscarMascota, actualizarEstadoSolicitud } = useApp();
+  const solicitud = buscarSolicitud(idSolicitud);
+  const mascota = solicitud ? buscarMascota(solicitud.idMascota) : null;
   const [resultado, setResultado] = useState(null);
 
   if (!solicitud) {
@@ -15,6 +17,7 @@ export default function RevisarSolicitudDetalle() {
   }
 
   const manejarDecision = (decision) => {
+    actualizarEstadoSolicitud(idSolicitud, decision === 'aceptada' ? 'Aceptada' : 'Rechazada');
     setResultado(decision);
   };
 
@@ -34,7 +37,7 @@ export default function RevisarSolicitudDetalle() {
             className={styles.botonVerSolicitudes}
             onClick={() => navigate('/admin/solicitudes')}
           >
-            VER MIS SOLICITUDES
+            VER SOLICITUDES
           </button>
         </div>
       </div>
@@ -46,41 +49,89 @@ export default function RevisarSolicitudDetalle() {
       <div className={styles.cuerpo}>
         <BotonVolver onClick={() => navigate('/admin/solicitudes')} />
 
-        <div className={styles.card}>
-          <div className={styles.columnaImagen}>
-            <div className={styles.imagenPlaceholder}>🐾</div>
-            <h2 className={styles.nombreMascota}>{solicitud.mascota}</h2>
-            <p className={styles.raza}>Raza - Edad - Sexo</p>
-            <p className={styles.zona}>📍 Zona o ubicacion</p>
+        <div className={styles.marcoGrande}>
+          <div className={styles.dosColumnas}>
+            {/* ===== RECUADRO MASCOTA ===== */}
+            <div className={styles.recuadroColumna}>
+              {mascota?.fotos?.[0] ? (
+                <img src={mascota.fotos[0]} alt={mascota.nombre} className={styles.imagenCuadrada} />
+              ) : (
+                <div className={styles.imagenPlaceholder}>🐾</div>
+              )}
 
-            <div className={styles.recuadro}>
-              <p className={styles.recuadroTitulo}>Ficha de Salud</p>
-              <div className={styles.listaCheck}>
-                <label>☑ Vacunas Al Dia</label>
-                <label>☑ Esterilizado</label>
-                <label>☑ Desparasitado</label>
-                <label>☑ Otros</label>
+              <div className={styles.encabezadoNombre}>
+                <h2 className={styles.nombreGrande}>{solicitud.mascota}</h2>
+                <span className={styles.etiquetaEstado}>{mascota?.estado}</span>
+              </div>
+              <p className={styles.raza}>{mascota?.raza} - {mascota?.edad} - {mascota?.especie}</p>
+              <p className={styles.zona}>📍 {mascota?.zona}</p>
+
+              <div className={styles.recuadroInterno}>
+                <p className={styles.recuadroTitulo}>Ficha de Salud</p>
+                <div className={styles.listaCheck}>
+                  {mascota?.vacunas && <label>☑ Vacunas Al Dia</label>}
+                  {mascota?.esterilizado && <label>☑ Esterilizado</label>}
+                  {mascota?.desparasitado && <label>☑ Desparasitado</label>}
+                  {mascota?.otrosTratamientos && <label>☑ {mascota.otrosTratamientos}</label>}
+                </div>
+              </div>
+
+              <div className={styles.recuadroInterno}>
+                <p className={styles.recuadroTitulo}>Comportamiento</p>
+                <div className={styles.etiquetas}>
+                  {mascota?.comportamiento?.map((c) => (
+                    <span key={c} className={styles.etiqueta}>
+                      {c}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className={styles.recuadro}>
-              <p className={styles.recuadroTitulo}>Comportamiento</p>
-              <div className={styles.etiquetas}>
-                <span className={styles.etiqueta}>Amigable</span>
-                <span className={styles.etiqueta}>Energetico</span>
+            {/* ===== RECUADRO ADOPTANTE ===== */}
+            <div className={styles.recuadroColumna}>
+              {solicitud.solicitanteFoto ? (
+                <img
+                  src={solicitud.solicitanteFoto}
+                  alt={solicitud.solicitanteNombre}
+                  className={styles.imagenCuadrada}
+                />
+              ) : (
+                <div className={styles.imagenPlaceholder}>✕</div>
+              )}
+
+              <h2 className={styles.nombreGrande}>{solicitud.solicitanteNombre}</h2>
+              <p className={styles.dato}>{solicitud.solicitanteTelefono}</p>
+              <p className={styles.dato}>{solicitud.solicitanteCorreo}</p>
+
+              {solicitud.solicitanteInfoExtra ? (
+                <div className={styles.mensajePerfil}>{solicitud.solicitanteInfoExtra}</div>
+              ) : (
+                <p className={styles.sinInfo}>Sin información adicional en el perfil</p>
+              )}
+
+              <div className={styles.recuadroInterno}>
+                <p className={styles.recuadroTitulo}>Cuéntanos sobre ti</p>
+                <p className={styles.campoDetalle}>
+                  <strong>Tipo de vivienda:</strong> {solicitud.tipoVivienda}
+                </p>
+                <p className={styles.campoDetalle}>
+                  <strong>¿Tiene otros animales?:</strong> {solicitud.otrosAnimales}
+                </p>
+                <p className={styles.campoDetalle}>
+                  <strong>¿Quién cuidará al animal?:</strong> {solicitud.quienCuidara}
+                </p>
+                <p className={styles.campoDetalle}>
+                  <strong>Experiencia previa:</strong> {solicitud.experiencia}
+                </p>
+                <p className={styles.campoDetalle}>
+                  <strong>Motivo de la adopción:</strong> {solicitud.motivo}
+                </p>
               </div>
             </div>
           </div>
 
-          <div className={styles.columnaSolicitante}>
-            <h3 className={styles.tituloSolicitante}>
-              {solicitud.solicitante}
-              <span className={styles.subEtiqueta}> (Solicitante)</span>
-            </h3>
-            <p className={styles.dato}>{solicitud.telefono}</p>
-            <p className={styles.dato}>{solicitud.correo}</p>
-            <p className={styles.mensaje}>{solicitud.mensaje}</p>
-
+          {solicitud.estado === 'Pendiente' ? (
             <div className={styles.botones}>
               <button
                 className={styles.botonAceptar}
@@ -94,14 +145,20 @@ export default function RevisarSolicitudDetalle() {
               >
                 Rechazar
               </button>
-              <button
-                className={styles.botonChatear}
-                onClick={() => navigate('/chat')}
-              >
-                Chatear
+              <button className={styles.botonChatear} onClick={() => navigate(`/chat?solicitud=${solicitud.id}`)}>
+                Mensajes
               </button>
             </div>
-          </div>
+          ) : (
+            <div className={styles.botones}>
+              <span className={styles.estadoYaDecidido}>
+                Esta solicitud ya fue {solicitud.estado.toLowerCase()}
+              </span>
+              <button className={styles.botonChatear} onClick={() => navigate(`/chat?solicitud=${solicitud.id}`)}>
+                Mensajes
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

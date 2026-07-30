@@ -1,16 +1,24 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarraAdmin from '../../components/common/BarraAdmin';
+import ModalConfirmacion from '../../components/common/ModalConfirmacion';
 import { useApp } from '../../context/AppContext';
 import styles from './GestionarPublicados.module.css';
+
+const claseEstado = {
+  Disponible: 'estadoDisponible',
+  'En revision': 'estadoRevision',
+  'No disponible': 'estadoNoDisponible',
+};
 
 export default function GestionarPublicados() {
   const navigate = useNavigate();
   const { mascotas, eliminarMascota } = useApp();
+  const [idAEliminar, setIdAEliminar] = useState(null);
 
-  const manejarEliminar = (id) => {
-    const confirmar = window.confirm('¿Seguro que quieres eliminar esta publicación?');
-    if (!confirmar) return;
-    eliminarMascota(id);
+  const confirmarEliminar = () => {
+    eliminarMascota(idAEliminar);
+    setIdAEliminar(null);
   };
 
   return (
@@ -28,12 +36,19 @@ export default function GestionarPublicados() {
         <div className={styles.lista}>
           {mascotas.map((m) => (
             <div key={m.id} className={styles.tarjeta}>
-              <div className={styles.fotoPlaceholder}>✕</div>
+              {m.fotos?.[0] ? (
+                <img src={m.fotos[0]} alt={m.nombre} className={styles.fotoImg} />
+              ) : (
+                <div className={styles.fotoPlaceholder}>✕</div>
+              )}
               <div className={styles.info}>
                 <h3 className={styles.nombre}>
                   {m.nombre} · {m.raza}
                 </h3>
                 <p className={styles.detalle}>{m.especie} - {m.tamano}</p>
+                <span className={`${styles.badgeEstado} ${styles[claseEstado[m.estado]]}`}>
+                  {m.estado}
+                </span>
               </div>
               <div className={styles.botones}>
                 <button
@@ -44,7 +59,7 @@ export default function GestionarPublicados() {
                 </button>
                 <button
                   className={styles.botonEliminar}
-                  onClick={() => manejarEliminar(m.id)}
+                  onClick={() => setIdAEliminar(m.id)}
                 >
                   Eliminar
                 </button>
@@ -53,6 +68,14 @@ export default function GestionarPublicados() {
           ))}
         </div>
       </div>
+
+      {idAEliminar && (
+        <ModalConfirmacion
+          titulo="¿Estas seguro que quieres eliminar la publicacion de la mascota? Esto implica que la publicacion sera eliminada del catalogo de mascotas permanentemente"
+          onCancelar={() => setIdAEliminar(null)}
+          onConfirmar={confirmarEliminar}
+        />
+      )}
     </div>
   );
 }

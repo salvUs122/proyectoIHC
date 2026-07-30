@@ -9,6 +9,7 @@ import styles from './AsistenteMascota.module.css';
 
 const datosVacios = {
   nombre: '',
+  especie: '',
   raza: '',
   edad: '',
   tamano: '',
@@ -82,8 +83,13 @@ export default function AsistenteMascota() {
 
       <div className={styles.contenidoPaso}>
         {pasoActual === 1 && (
-          <PasoDatosBasicos datos={datos} actualizarDatos={actualizarDatos} onSiguiente={irSiguiente} />
-        )}
+  <PasoDatosBasicos
+    datos={datos}
+    actualizarDatos={actualizarDatos}
+    onSiguiente={irSiguiente}
+    onCancelar={() => navigate('/admin/publicados')}
+  />
+)}
         {pasoActual === 2 && (
           <PasoSalud datos={datos} actualizarDatos={actualizarDatos} onSiguiente={irSiguiente} onAtras={irAtras} />
         )}

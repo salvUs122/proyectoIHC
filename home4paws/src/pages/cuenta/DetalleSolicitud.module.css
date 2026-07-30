@@ -120,4 +120,16 @@
     width: auto;
     padding: 14px 24px;
   }
+  .imagenReal {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+}
+
+@media (min-width: 1024px) {
+  .imagenReal {
+    height: 100%;
+  }
+}
 }

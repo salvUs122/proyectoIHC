@@ -62,11 +62,15 @@
 }
 
 .estadoAceptada {
-  background: #dcfce7;
+  background: var(--color-surface-dark);
+  color: white;
 }
 
 .estadoRechazada {
-  background: #fee2e2;
+  background: white;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-light);
+  text-decoration: line-through;
 }
 
 .estadoRevision {
@@ -98,4 +102,12 @@
     width: auto;
     padding: 10px 24px;
   }
+  .fotoImg {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 }

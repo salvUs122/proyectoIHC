@@ -114,4 +114,10 @@
       padding: 14px 32px;
     }
   }
+  .fotoPerfil {
+    width: 160px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: var(--radius-card);
+  }
 }

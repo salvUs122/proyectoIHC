@@ -129,4 +129,14 @@
   .mensajes {
     min-height: 450px;
   }
+    .sinConversacion {
+    text-align: center;
+    color: var(--color-text-light);
+    padding: var(--spacing-lg);
+  }
+
+  .sinMensajes {
+    color: var(--color-text-light);
+    text-align: center;
+  }
 }

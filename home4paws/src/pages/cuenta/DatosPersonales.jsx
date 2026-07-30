@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BarraNavegacion from '../../components/common/BarraNavegacion';
 import BotonVolver from '../../components/common/BotonVolver';
@@ -8,14 +8,26 @@ import styles from './DatosPersonales.module.css';
 
 export default function DatosPersonales() {
   const navigate = useNavigate();
-  const { usuarioActual, setUsuarioActual } = useApp();
-  const [infoExtra, setInfoExtra] = useState('');
+  const { usuarioActual, setUsuarioActual, actualizarUsuarioActual } = useApp();
+  const inputFotoRef = useRef(null);
 
-  const usuario = usuarioActual || { nombre: 'Invitado', telefono: '', correo: '' };
+  const usuario = usuarioActual || { nombre: 'Invitado', telefono: '', correo: '', foto: null, infoExtra: '' };
+  const [infoExtra, setInfoExtra] = useState(usuario.infoExtra || '');
 
   const cerrarSesion = () => {
     setUsuarioActual(null);
     navigate('/');
+  };
+
+  const manejarSeleccionFoto = (e) => {
+    const archivo = e.target.files[0];
+    if (!archivo) return;
+    const url = URL.createObjectURL(archivo);
+    actualizarUsuarioActual({ foto: url });
+  };
+
+  const guardarInfoExtra = () => {
+    actualizarUsuarioActual({ infoExtra });
   };
 
   return (
@@ -30,8 +42,24 @@ export default function DatosPersonales() {
 
         <div className={styles.card}>
           <div className={styles.columnaFoto}>
-            <div className={styles.fotoPlaceholder}>✕</div>
-            <button className={styles.botonFoto}>+ agregar foto de perfil</button>
+            {usuario.foto ? (
+              <img src={usuario.foto} alt={usuario.nombre} className={styles.fotoPerfil} />
+            ) : (
+              <div className={styles.fotoPlaceholder}>✕</div>
+            )}
+            <button
+              className={styles.botonFoto}
+              onClick={() => inputFotoRef.current.click()}
+            >
+              + agregar foto de perfil
+            </button>
+            <input
+              ref={inputFotoRef}
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={manejarSeleccionFoto}
+            />
           </div>
 
           <div className={styles.columnaDatos}>
@@ -44,6 +72,7 @@ export default function DatosPersonales() {
               placeholder="+ agregar infomacion...."
               value={infoExtra}
               onChange={(e) => setInfoExtra(e.target.value)}
+              onBlur={guardarInfoExtra}
             />
 
             <button className={styles.botonCerrarSesion} onClick={cerrarSesion}>

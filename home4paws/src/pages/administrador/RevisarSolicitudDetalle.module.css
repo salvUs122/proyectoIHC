@@ -7,27 +7,61 @@
   padding: var(--spacing-md);
 }
 
-.card {
+.marcoGrande {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   padding: var(--spacing-md);
 }
 
+.dosColumnas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.recuadroColumna {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md);
+}
+
+.imagenCuadrada {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  margin-bottom: var(--spacing-sm);
+  display: block;
+}
+
 .imagenPlaceholder {
   width: 100%;
-  height: 220px;
+  height: 200px;
   background: var(--color-surface);
   border-radius: var(--radius-card);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: var(--spacing-sm);
 }
 
-.nombreMascota {
-  font-size: 1.4rem;
+.encabezadoNombre {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.nombreGrande {
+  font-size: 1.3rem;
   font-weight: bold;
+}
+
+.etiquetaEstado {
+  padding: 4px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
 }
 
 .raza {
@@ -38,11 +72,30 @@
   margin: var(--spacing-sm) 0;
 }
 
-.recuadro {
+.dato {
+  margin-bottom: 4px;
+}
+
+.mensajePerfil {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  font-size: 0.9rem;
+}
+
+.sinInfo {
+  color: var(--color-text-light);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: var(--spacing-sm);
+}
+
+.recuadroInterno {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-card);
   padding: var(--spacing-md);
-  margin-bottom: var(--spacing-md);
+  margin-top: var(--spacing-md);
 }
 
 .recuadroTitulo {
@@ -69,30 +122,9 @@
   font-size: 0.85rem;
 }
 
-.columnaSolicitante {
-  margin-top: var(--spacing-md);
-  padding-top: var(--spacing-md);
-  border-top: 1px solid var(--color-border);
-}
-
-.tituloSolicitante {
-  font-weight: bold;
-  margin-bottom: var(--spacing-sm);
-}
-
-.subEtiqueta {
-  font-weight: normal;
-  color: var(--color-text-light);
-}
-
-.dato {
-  margin-bottom: 4px;
-}
-
-.mensaje {
-  margin-top: var(--spacing-sm);
-  color: var(--color-text-light);
-  line-height: 1.4;
+.campoDetalle {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
 }
 
 .botones {
@@ -109,18 +141,14 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-pill);
   font-weight: bold;
-}
-
-.botonAceptar {
-  background: #dcfce7;
-}
-
-.botonRechazar {
-  background: #fee2e2;
-}
-
-.botonChatear {
   background: white;
+}
+
+.estadoYaDecidido {
+  padding: 12px;
+  color: var(--color-text-light);
+  font-style: italic;
+  text-align: center;
 }
 
 .noEncontrada {
@@ -128,7 +156,7 @@
   padding: var(--spacing-lg);
 }
 
-/* Pantalla de resultado (Aceptada/Rechazada) */
+/* Pantalla de resultado */
 .resultadoContenedor {
   min-height: 100vh;
   display: flex;
@@ -179,32 +207,34 @@
     padding: var(--spacing-lg);
   }
 
-  .card {
-    display: flex;
-    gap: var(--spacing-lg);
+  .marcoGrande {
     padding: var(--spacing-lg);
   }
 
-  .columnaImagen {
-    width: 380px;
-    flex-shrink: 0;
+  .dosColumnas {
+    flex-direction: row;
+    align-items: flex-start;
   }
 
-  .columnaSolicitante {
+  .recuadroColumna {
     flex: 1;
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
+    padding: var(--spacing-lg);
+  }
+
+  .imagenCuadrada,
+  .imagenPlaceholder {
+    height: 220px;
   }
 
   .botones {
-    flex-direction: row;
-  }
+  flex-direction: row;
+  justify-content: flex-end;
+}
 
   .botonAceptar,
   .botonRechazar,
   .botonChatear {
     flex: none;
-    padding: 14px 24px;
+    padding: 14px 30px;
   }
 }

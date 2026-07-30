@@ -8,25 +8,25 @@ const AppContext = createContext(null);
 
 const mascotasBase = [
   {
-    id: 1, nombre: 'Cachuchin', raza: 'Mestizo', edad: '1 año', tamano: 'Mediano',
+    id: 1, nombre: 'Cachuchin', especie: 'Perro', raza: 'Mestizo', edad: '1 año', tamano: 'Mediano',
     zona: 'Zona Sur, Cochabamba', estado: 'Disponible',
     vacunas: true, esterilizado: true, desparasitado: true, otrosTratamientos: '',
     comportamiento: ['Amigable', 'Con niños'], notas: '', fotos: [fotoCachuchin],
   },
   {
-    id: 2, nombre: 'Gimione', raza: 'Mestizo', edad: '8 meses', tamano: 'Pequeño',
+    id: 2, nombre: 'Gimione', especie: 'Gato', raza: 'Mestizo', edad: '8 meses', tamano: 'Pequeño',
     zona: 'Centro, Cochabamba', estado: 'Disponible',
     vacunas: true, esterilizado: false, desparasitado: true, otrosTratamientos: '',
     comportamiento: ['Tímido', 'Tranquilo'], notas: '', fotos: [fotoGimione],
   },
   {
-    id: 3, nombre: 'Perlita', raza: 'Mestizo', edad: '2 años', tamano: 'Pequeño',
+    id: 3, nombre: 'Perlita', especie: 'Gato', raza: 'Mestizo', edad: '2 años', tamano: 'Pequeño',
     zona: 'Queru Queru, Cochabamba', estado: 'Disponible',
     vacunas: true, esterilizado: true, desparasitado: true, otrosTratamientos: '',
     comportamiento: ['Amigable'], notas: '', fotos: [fotoPerlita],
   },
   {
-    id: 4, nombre: 'Firulais', raza: 'Mestizo', edad: '2 años', tamano: 'Mediano',
+    id: 4, nombre: 'Firulais', especie: 'Perro', raza: 'Mestizo', edad: '2 años', tamano: 'Mediano',
     zona: 'Zona Sur, Cochabamba', estado: 'Disponible',
     vacunas: true, esterilizado: true, desparasitado: false, otrosTratamientos: '',
     comportamiento: ['Amigable', 'Enérgico'], notas: 'Es muy cariñoso y tranquilo', fotos: [fotoFirulais],
@@ -50,7 +50,7 @@ export function AppProvider({ children }) {
   const [usuarios, setUsuarios] = useState(usuariosBase);
   const [admins] = useState(adminsBase);
   const [mascotas, setMascotas] = useState(mascotasBase);
-  const [solicitudes, setSolicitudes] = useState([]); // vacío por defecto, se llenan al usar la app
+  const [solicitudes, setSolicitudes] = useState([]);
   const [conversaciones, setConversaciones] = useState({});
   const [notificaciones, setNotificaciones] = useState([]);
 
@@ -105,60 +105,14 @@ export function AppProvider({ children }) {
 
   const buscarMascota = (id) => mascotas.find((m) => m.id === Number(id));
 
-  // Mascotas visibles para el usuario: nunca mostrar "No disponible"
   const mascotasVisibles = mascotas.filter((m) => m.estado !== 'No disponible');
 
-  // ----- SOLICITUDES -----
-  const agregarSolicitud = (datos) => {
-    const nuevoId = solicitudes.length ? Math.max(...solicitudes.map((s) => s.id)) + 1 : 1;
-    const nueva = { id: nuevoId, estado: 'Pendiente', ...datos };
-    setSolicitudes((prev) => [...prev, nueva]);
-
-    // La mascota pasa a "En revision" al recibir una solicitud
-    editarMascota(datos.idMascota, { estado: 'En revision' });
-
-    return nueva;
-  };
-
-  const actualizarEstadoSolicitud = (id, nuevoEstado) => {
-    const solicitud = solicitudes.find((s) => s.id === Number(id));
-    setSolicitudes((prev) =>
-      prev.map((s) => (s.id === Number(id) ? { ...s, estado: nuevoEstado } : s))
-    );
-
-    if (solicitud) {
-      if (nuevoEstado === 'Aceptada') {
-        // La mascota se oculta del catálogo
-        editarMascota(solicitud.idMascota, { estado: 'No disponible' });
-        // Notificar al usuario
-        agregarNotificacion(
-          solicitud.solicitanteCorreo,
-          `Respondieron tu solicitud de ${solicitud.mascota}`,
-          `¡Buenas noticias! Tu solicitud para adoptar a ${solicitud.mascota} fue ACEPTADA. Contáctanos por el chat para coordinar la entrega.`
-        );
-      } else if (nuevoEstado === 'Rechazada') {
-        // La mascota vuelve a estar disponible (si no tiene otras solicitudes pendientes)
-        editarMascota(solicitud.idMascota, { estado: 'Disponible' });
-        agregarNotificacion(
-          solicitud.solicitanteCorreo,
-          `Respondieron tu solicitud de ${solicitud.mascota}`,
-          `Tu solicitud para adoptar a ${solicitud.mascota} fue rechazada. Puedes revisar otras mascotas disponibles.`
-        );
-      }
-    }
-  };
-
-  const buscarSolicitud = (id) => solicitudes.find((s) => s.id === Number(id));
-
-  const solicitudesDelUsuario = (correo) =>
-    solicitudes.filter((s) => s.solicitanteCorreo === correo);
-
   // ----- NOTIFICACIONES -----
-  const agregarNotificacion = (correoUsuario, titulo, mensaje) => {
+  const agregarNotificacion = (correoUsuario, idSolicitud, titulo, mensaje) => {
     const nuevoId = Date.now();
     setNotificaciones((prev) => [
       ...prev,
-      { id: nuevoId, correoUsuario, titulo, mensaje, leida: false },
+      { id: nuevoId, correoUsuario, idSolicitud, titulo, mensaje, leida: false },
     ]);
   };
 
@@ -171,11 +125,61 @@ export function AppProvider({ children }) {
     );
   };
 
+  // ----- SOLICITUDES -----
+  const agregarSolicitud = (datos) => {
+    const nuevoId = solicitudes.length ? Math.max(...solicitudes.map((s) => s.id)) + 1 : 1;
+    const nueva = { id: nuevoId, estado: 'Pendiente', ...datos };
+    setSolicitudes((prev) => [...prev, nueva]);
+
+    editarMascota(datos.idMascota, { estado: 'En revision' });
+
+    return nueva;
+  };
+
+  const actualizarEstadoSolicitud = (id, nuevoEstado) => {
+  const solicitud = solicitudes.find((s) => s.id === Number(id));
+  const solicitudesActualizadas = solicitudes.map((s) =>
+    s.id === Number(id) ? { ...s, estado: nuevoEstado } : s
+  );
+  setSolicitudes(solicitudesActualizadas);
+
+  if (solicitud) {
+    if (nuevoEstado === 'Aceptada') {
+      editarMascota(solicitud.idMascota, { estado: 'No disponible' });
+      agregarNotificacion(
+        solicitud.solicitanteCorreo,
+        solicitud.id,
+        `Respondieron tu solicitud de ${solicitud.mascota}`,
+        `¡Buenas noticias! Tu solicitud para adoptar a ${solicitud.mascota} fue ACEPTADA. Contáctanos por el chat para coordinar la entrega.`
+      );
+    } else if (nuevoEstado === 'Rechazada') {
+      // Solo vuelve a "Disponible" si NO quedan otras solicitudes pendientes para esa mascota
+      const quedanPendientes = solicitudesActualizadas.some(
+        (s) => s.idMascota === solicitud.idMascota && s.estado === 'Pendiente'
+      );
+      if (!quedanPendientes) {
+        editarMascota(solicitud.idMascota, { estado: 'Disponible' });
+      }
+      agregarNotificacion(
+        solicitud.solicitanteCorreo,
+        solicitud.id,
+        `Respondieron tu solicitud de ${solicitud.mascota}`,
+        `Tu solicitud para adoptar a ${solicitud.mascota} fue rechazada. Puedes revisar otras mascotas disponibles.`
+      );
+    }
+  }
+};
+
+  const buscarSolicitud = (id) => solicitudes.find((s) => s.id === Number(id));
+
+  const solicitudesDelUsuario = (correo) =>
+    solicitudes.filter((s) => s.solicitanteCorreo === correo);
+
   // ----- CHAT (una conversación por solicitud) -----
   const obtenerMensajes = (idConversacion) => conversaciones[idConversacion] || [];
 
-  const enviarMensaje = (idConversacion, texto, propio) => {
-    const nuevoMensaje = { id: Date.now(), texto, propio };
+  const enviarMensaje = (idConversacion, texto, autor) => {
+    const nuevoMensaje = { id: Date.now(), texto, autor };
     setConversaciones((prev) => ({
       ...prev,
       [idConversacion]: [...(prev[idConversacion] || []), nuevoMensaje],

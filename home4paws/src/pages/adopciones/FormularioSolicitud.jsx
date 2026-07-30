@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import BarraNavegacion from '../../components/common/BarraNavegacion';
 import BotonVolver from '../../components/common/BotonVolver';
-import { mascotas } from '../../data/mascotas';
+import { useApp } from '../../context/AppContext';
 import styles from './FormularioSolicitud.module.css';
 
 export default function FormularioSolicitud() {
   const { idMascota } = useParams();
   const navigate = useNavigate();
-  const mascota = mascotas.find((m) => m.id === Number(idMascota));
+  const { buscarMascota, agregarSolicitud, usuarioActual } = useApp();
+  const mascota = buscarMascota(idMascota);
 
   const [tipoVivienda, setTipoVivienda] = useState('');
   const [otrosAnimales, setOtrosAnimales] = useState('');
@@ -32,8 +33,28 @@ export default function FormularioSolicitud() {
       return;
     }
 
+    agregarSolicitud({
+      idMascota: mascota.id,
+      mascota: mascota.nombre,
+      raza: mascota.raza,
+      solicitanteNombre: usuarioActual?.nombre || 'Usuario',
+      solicitanteTelefono: usuarioActual?.telefono || '',
+      solicitanteCorreo: usuarioActual?.correo || '',
+      solicitanteFoto: usuarioActual?.foto || null,
+      solicitanteInfoExtra: usuarioActual?.infoExtra || '',
+      tipoVivienda,
+      otrosAnimales,
+      quienCuidara,
+      experiencia,
+      motivo,
+    });
+
     navigate(`/adopciones/${idMascota}/enviada`);
   };
+
+  if (!mascota) {
+    return <p className={styles.noEncontrada}>Mascota no encontrada.</p>;
+  }
 
   return (
     <div className={styles.contenedor}>

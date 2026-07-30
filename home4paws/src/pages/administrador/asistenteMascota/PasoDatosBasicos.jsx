@@ -1,11 +1,18 @@
 import { useState } from 'react';
 import styles from './PasosFormulario.module.css';
 
-export default function PasoDatosBasicos({ datos, actualizarDatos, onSiguiente }) {
+export default function PasoDatosBasicos({ datos, actualizarDatos, onSiguiente, onCancelar }) {
   const [error, setError] = useState('');
 
   const manejarSiguiente = () => {
-    if (!datos.nombre.trim() || !datos.raza.trim() || !datos.edad.trim() || !datos.tamano.trim() || !datos.zona.trim()) {
+    if (
+      !datos.nombre.trim() ||
+      !datos.especie ||
+      !datos.raza.trim() ||
+      !datos.edad.trim() ||
+      !datos.tamano.trim() ||
+      !datos.zona.trim()
+    ) {
       setError('Todos los campos son obligatorios');
       return;
     }
@@ -23,7 +30,19 @@ export default function PasoDatosBasicos({ datos, actualizarDatos, onSiguiente }
         onChange={(e) => actualizarDatos({ nombre: e.target.value })}
       />
 
-      <label className={styles.etiqueta}>Especie / raza</label>
+      <label className={styles.etiqueta}>Especie</label>
+      <select
+        className={styles.input}
+        value={datos.especie}
+        onChange={(e) => actualizarDatos({ especie: e.target.value })}
+      >
+        <option value="">Seleccionar...</option>
+        <option value="Perro">Perro</option>
+        <option value="Gato">Gato</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label className={styles.etiqueta}>Raza</label>
       <input
         type="text"
         className={styles.input}
@@ -62,6 +81,9 @@ export default function PasoDatosBasicos({ datos, actualizarDatos, onSiguiente }
       {error && <p className={styles.error}>{error}</p>}
 
       <div className={styles.botones}>
+        <button className={styles.botonAtras} onClick={onCancelar}>
+          Atras
+        </button>
         <button className={styles.botonSiguiente} onClick={manejarSiguiente}>
           Siguiente
         </button>
