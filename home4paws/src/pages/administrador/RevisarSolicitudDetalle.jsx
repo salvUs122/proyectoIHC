@@ -131,7 +131,7 @@ export default function RevisarSolicitudDetalle() {
             </div>
           </div>
 
-          {solicitud.estado === 'Pendiente' ? (
+          {solicitud.estado === 'Pendiente' && mascota?.estado !== 'No disponible' ? (
             <div className={styles.botones}>
               <button
                 className={styles.botonAceptar}
@@ -152,7 +152,9 @@ export default function RevisarSolicitudDetalle() {
           ) : (
             <div className={styles.botones}>
               <span className={styles.estadoYaDecidido}>
-                Esta solicitud ya fue {solicitud.estado.toLowerCase()}
+                {solicitud.estado === 'Pendiente' && mascota?.estado === 'No disponible'
+                  ? 'Esta mascota ya fue adoptada por otro solicitante'
+                  : `Esta solicitud ya fue ${solicitud.estado.toLowerCase()}`}
               </span>
               <button className={styles.botonChatear} onClick={() => navigate(`/chat?solicitud=${solicitud.id}`)}>
                 Mensajes

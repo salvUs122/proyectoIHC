@@ -42,9 +42,22 @@
 .avatar {
   width: 44px;
   height: 44px;
+  min-width: 44px;
   border-radius: 50%;
   background: var(--color-surface-dark);
   flex-shrink: 0;
+}
+.avatarImg {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  min-height: 44px !important;
+  max-height: 44px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
 }
 
 .nombreRefugio {
@@ -118,6 +131,12 @@
   flex-shrink: 0;
 }
 
+.sinConversacion,
+.sinMensajes {
+  color: var(--color-text-light);
+  text-align: center;
+}
+
 /* ===== DESKTOP ===== */
 @media (min-width: 1024px) {
   .cuerpo {
@@ -128,15 +147,5 @@
 
   .mensajes {
     min-height: 450px;
-  }
-    .sinConversacion {
-    text-align: center;
-    color: var(--color-text-light);
-    padding: var(--spacing-lg);
-  }
-
-  .sinMensajes {
-    color: var(--color-text-light);
-    text-align: center;
   }
 }

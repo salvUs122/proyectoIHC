@@ -44,6 +44,17 @@
   font-size: 1.3rem;
 }
 
+.botonIdentificate {
+  padding: 10px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-dark);
+  color: white;
+  font-weight: bold;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
 /* ===== DESKTOP ===== */
 @media (min-width: 1024px) {
   .navbar {
@@ -53,14 +64,5 @@
 
   .logo {
     width: 60px;
-  }
-    .botonIdentificate {
-    padding: 10px 20px;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-pill);
-    background: var(--color-surface-dark);
-    color: white;
-    font-weight: bold;
-    font-size: 0.85rem;
   }
 }

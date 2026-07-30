@@ -112,6 +112,7 @@
   background: white;
   color: var(--color-text);
   font-size: 0.9rem;
+  border: none;
 }
 
 .opcionMenu:hover {

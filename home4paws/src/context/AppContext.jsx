@@ -109,7 +109,7 @@ export function AppProvider({ children }) {
 
   // ----- NOTIFICACIONES -----
   const agregarNotificacion = (correoUsuario, idSolicitud, titulo, mensaje) => {
-    const nuevoId = Date.now();
+    const nuevoId = Date.now() + Math.random();
     setNotificaciones((prev) => [
       ...prev,
       { id: nuevoId, correoUsuario, idSolicitud, titulo, mensaje, leida: false },
@@ -130,36 +130,63 @@ export function AppProvider({ children }) {
     const nuevoId = solicitudes.length ? Math.max(...solicitudes.map((s) => s.id)) + 1 : 1;
     const nueva = { id: nuevoId, estado: 'Pendiente', ...datos };
     setSolicitudes((prev) => [...prev, nueva]);
-
     editarMascota(datos.idMascota, { estado: 'En revision' });
-
     return nueva;
   };
 
   const actualizarEstadoSolicitud = (id, nuevoEstado) => {
-  const solicitud = solicitudes.find((s) => s.id === Number(id));
-  const solicitudesActualizadas = solicitudes.map((s) =>
-    s.id === Number(id) ? { ...s, estado: nuevoEstado } : s
-  );
-  setSolicitudes(solicitudesActualizadas);
+    const solicitud = solicitudes.find((s) => s.id === Number(id));
+    if (!solicitud) return;
 
-  if (solicitud) {
+    // Protección: si la mascota ya no está disponible (ya fue decidida por otra solicitud), no hacer nada
+    const mascota = buscarMascota(solicitud.idMascota);
+    if (mascota?.estado === 'No disponible' && solicitud.estado === 'Pendiente') {
+      return;
+    }
+
     if (nuevoEstado === 'Aceptada') {
+      // Todas las OTRAS solicitudes pendientes de esta misma mascota se rechazan automáticamente
+      const otrasPendientes = solicitudes.filter(
+        (s) => s.idMascota === solicitud.idMascota && s.id !== solicitud.id && s.estado === 'Pendiente'
+      );
+
+      setSolicitudes((prev) =>
+        prev.map((s) => {
+          if (s.id === solicitud.id) return { ...s, estado: 'Aceptada' };
+          if (otrasPendientes.some((o) => o.id === s.id)) return { ...s, estado: 'Rechazada' };
+          return s;
+        })
+      );
+
       editarMascota(solicitud.idMascota, { estado: 'No disponible' });
+
       agregarNotificacion(
         solicitud.solicitanteCorreo,
         solicitud.id,
         `Respondieron tu solicitud de ${solicitud.mascota}`,
         `¡Buenas noticias! Tu solicitud para adoptar a ${solicitud.mascota} fue ACEPTADA. Contáctanos por el chat para coordinar la entrega.`
       );
+
+      otrasPendientes.forEach((otra) => {
+        agregarNotificacion(
+          otra.solicitanteCorreo,
+          otra.id,
+          `Actualización sobre ${otra.mascota}`,
+          `Lo sentimos, ${otra.mascota} ya fue adoptado por otra persona. Puedes revisar otras mascotas disponibles.`
+        );
+      });
     } else if (nuevoEstado === 'Rechazada') {
-      // Solo vuelve a "Disponible" si NO quedan otras solicitudes pendientes para esa mascota
-      const quedanPendientes = solicitudesActualizadas.some(
-        (s) => s.idMascota === solicitud.idMascota && s.estado === 'Pendiente'
+      setSolicitudes((prev) =>
+        prev.map((s) => (s.id === Number(id) ? { ...s, estado: 'Rechazada' } : s))
+      );
+
+      const quedanPendientes = solicitudes.some(
+        (s) => s.idMascota === solicitud.idMascota && s.id !== solicitud.id && s.estado === 'Pendiente'
       );
       if (!quedanPendientes) {
         editarMascota(solicitud.idMascota, { estado: 'Disponible' });
       }
+
       agregarNotificacion(
         solicitud.solicitanteCorreo,
         solicitud.id,
@@ -167,15 +194,14 @@ export function AppProvider({ children }) {
         `Tu solicitud para adoptar a ${solicitud.mascota} fue rechazada. Puedes revisar otras mascotas disponibles.`
       );
     }
-  }
-};
+  };
 
   const buscarSolicitud = (id) => solicitudes.find((s) => s.id === Number(id));
 
   const solicitudesDelUsuario = (correo) =>
     solicitudes.filter((s) => s.solicitanteCorreo === correo);
 
-  // ----- CHAT (una conversación por solicitud) -----
+  // ----- CHAT -----
   const obtenerMensajes = (idConversacion) => conversaciones[idConversacion] || [];
 
   const enviarMensaje = (idConversacion, texto, autor) => {

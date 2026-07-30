@@ -1,13 +1,13 @@
 import BarraAdmin from '../../components/common/BarraAdmin';
+import { useApp } from '../../context/AppContext';
 import styles from './PanelAdministracion.module.css';
 
 export default function PanelAdministracion() {
-  // Datos de prueba, luego vendrán del backend
-  const estadisticas = {
-    animalesPublicados: 8,
-    solicitudesPendientes: 4,
-    adopcionesConcretadas: 12,
-  };
+  const { mascotas, solicitudes } = useApp();
+
+  const animalesPublicados = mascotas.length;
+  const solicitudesPendientes = solicitudes.filter((s) => s.estado === 'Pendiente').length;
+  const adopcionesConcretadas = solicitudes.filter((s) => s.estado === 'Aceptada').length;
 
   return (
     <div className={styles.contenedor}>
@@ -16,15 +16,15 @@ export default function PanelAdministracion() {
       <div className={styles.cuerpo}>
         <div className={styles.tarjetas}>
           <div className={styles.tarjeta}>
-            <span className={styles.numero}>{estadisticas.animalesPublicados}</span>
+            <span className={styles.numero}>{animalesPublicados}</span>
             <p className={styles.etiqueta}>Animales publicados</p>
           </div>
           <div className={styles.tarjeta}>
-            <span className={styles.numero}>{estadisticas.solicitudesPendientes}</span>
+            <span className={styles.numero}>{solicitudesPendientes}</span>
             <p className={styles.etiqueta}>Solicitudes pendientes</p>
           </div>
           <div className={styles.tarjeta}>
-            <span className={styles.numero}>{estadisticas.adopcionesConcretadas}</span>
+            <span className={styles.numero}>{adopcionesConcretadas}</span>
             <p className={styles.etiqueta}>Adopciones concretadas</p>
           </div>
         </div>
